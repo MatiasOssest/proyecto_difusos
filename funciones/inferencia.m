@@ -1,4 +1,4 @@
-function [output] = inferencia(x1,x2)
+function [output,regla1,regla2] = inferencia(x1,x2)
 %% valores difusos
 ng = [-1.0 -1.0 -0.7 -0.55];
 nm = [-0.7 -0.5 -0.4 -0.2];
@@ -29,10 +29,18 @@ E2 = [ng_pp; ng_np; np_pi; ng_nm; pm_pg; ce; ng_nm; pm_pg; ni_pp; pp_pg;...
 S = [pg; pm; pm; pm; np; ce; pp; nm; nm; nm; ng; ce; pp; ce; np; pg; ng]; %Salida
 
 output=zeros(17,length(x1));
+regla1=zeros(1,17);
+regla2=zeros(1,17);
 %% Salidas
 for i=1:17
     y1 = mu(x1,E1(i,:));
+    if y1~=0
+        regla1(i)=+1;
+    end
     y2 = mu(x2,E2(i,:));
+    if y2~=0
+        regla2(i)=+1;
+    end
     [~,y]= trapecio(S(i,:));
     aux = min(y1,y2);
     y = limitar(y,aux);
