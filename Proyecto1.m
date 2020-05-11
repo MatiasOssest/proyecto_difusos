@@ -93,8 +93,6 @@ Presion = zeros(1,t);
 Calor = zeros(1,t);
 reglas1=zeros(1,17);
 reglas2=zeros(1,17);
-areas1=zeros(1,17);
-areas2=zeros(1,17);
 for i=1:t
    %Se guarda los valores actuales de cada variable
    Error(1,i) = EP;
@@ -111,12 +109,10 @@ for i=1:t
    TP = TP/15;
    
    %CLD
-   [SS,a,b,c,d]= inferencia(EP, TP);
+   [SS,a,b]= inferencia(EP, TP);
    
    reglas1=a+reglas1;
    reglas2=b+reglas2;
-   areas1=abs(c)+areas1;
-   areas2=abs(d)+areas2;
 
    dH = desdifusion(SS,'MoM');
    
