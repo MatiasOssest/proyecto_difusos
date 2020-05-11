@@ -1,5 +1,6 @@
 %% Proyecto 1
 % Profesor: Claudio Held
+% Auxiliar: Leonardo Causa
 % Estudiante: Matías Osses
 % Estudiante: Alvaro Toledo
 
@@ -11,13 +12,15 @@ EP = P - PO; %Error inicial
 TP = 0; %Tasa de error inicial
 dH = 0; %Delta calor
 
-t = 200;
+t = 30;
 Error = zeros(1,t);
 TasaError = zeros(1,t);
 Presion = zeros(1,t);
 Calor = zeros(1,t);
 reglas1=zeros(1,17);
 reglas2=zeros(1,17);
+rules = zeros(17,t);
+tiempo = 1:t;
 for i=1:t
    %Se guarda los valores actuales de cada variable
    Error(1,i) = EP;
@@ -35,7 +38,10 @@ for i=1:t
    
    %CLD
    [SS,a,b]= inferencia(EP, TP);
-  
+   r = importancia_reglas(SS); 
+   for j=1:17 
+    rules(j,i) = r(j);
+   end
    reglas1=a+reglas1;
    reglas2=b+reglas2;
 
@@ -52,9 +58,30 @@ for i=1:t
    EP = aux;
    
 end
+hold on
+ax1 = subplot(3,1,1);
+for i=1:6
+plot(tiempo,rules(i,:));
+end
+legend("regla 1", "regla 2", "regla 3",...
+    "regla 4", "regla 5", "regla 6")
 
-t = 1:200;
+subplot(3,1,2)
+for i=7:12
+plot(tiempo,rules(i,:));
+end
+legend("regla 7", "regla 8", "regla 9",...
+    "regla 10", "regla 11", "regla 12")
 
+subplot(3,1,3)
+for i=13:17
+plot(tiempo,rules(i,:));
+end
+legend("regla 13", "regla 14", "regla 15",...
+    "regla 16", "regla 17")
+
+hold off
+%%
 figure(1)
 bar(reglas1)
 title('Evolución de la secuencia de reglas 1 P0=650 y defuzz CG')
@@ -154,7 +181,7 @@ title('Evolución de la Presion con P0=650 y defuzz MoM')
 figure(12)
 plot(t,Calor)
 title('Evolución del Calor con P0=650 y defuzz MoM')
-f
+
 
 %%
 %%Condicion Inicial P=730
@@ -405,7 +432,7 @@ for i=1:t
    [SS,a,b]= inferencia(EP, TP);
    reglas1=a+reglas1;
    reglas2=b+reglas2;
-   dH = desdifusion(SS,'MoM');
+   dH = desdifusion(SS,"MoM");
    
    %desfuzzificación
    dH = dH*15;

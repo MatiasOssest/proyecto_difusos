@@ -28,7 +28,7 @@ E2 = [ng_pp; ng_np; np_pi; ng_nm; pm_pg; ce; ng_nm; pm_pg; ni_pp; pp_pg;...
     np_pg; pp; np; np; pp; pm_pg; ng_nm]; %Tasa cambio Error de P (TP)
 S = [pg; pm; pm; pm; np; ce; pp; nm; nm; nm; ng; ce; pp; ce; np; pg; ng]; %Salida
 
-output=zeros(17,length(x1));
+output=zeros(17,1000);
 regla1=zeros(1,17);
 regla2=zeros(1,17);
 %% Salidas
@@ -44,9 +44,8 @@ for i=1:17
     [~,y]= trapecio(S(i,:));
     aux = min(y1,y2);
     y = limitar(y,aux);
-    for j=1:length(y)
-        output(i,j) = y(1,j);
-    end
+    output(i,:) = y;
+    
 end
 end
 

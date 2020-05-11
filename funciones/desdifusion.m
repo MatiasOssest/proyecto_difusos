@@ -1,20 +1,19 @@
-function [valor] = desdifusion(espacio)
+function [valor] = desdifusion(espacio, metodo)
 %DESDIFUSION Summary of this function goes here
 %   Detailed explanation goes here
 
-[a,b] = size(espacio);
-x = linspace(-1,1,b);
-valor=0;
-area_total=0;
-for i=1:a
-   fun=espacio(i,:);
-   area_total= area_total + area(fun,x);
-   valor= valor + area(fun,x)*centro_x(fun,x);
-end
-if area_total == 0
-    valor=0;
-else
-    valor = valor/area_total;
-end
+    [~,b] = size(espacio);
+    x = linspace(-1,1,b);
+    fun = max(espacio);
+
+    if metodo == 'h'
+        valor = alturas(espacio,x);
+    elseif metodo == "MoM"
+        valor = MoM(fun,x);
+    elseif metodo == "CG"
+        valor = centro_x(fun,x);
+    else
+        error('El método solicitado es incorrecto')
+    end
 end
 
