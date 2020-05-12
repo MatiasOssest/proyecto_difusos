@@ -6,7 +6,7 @@ function [valor] = desdifusion(espacio, metodo)
     x = linspace(-1,1,b);
     fun = max(espacio);
 
-    if metodo == 'h'
+    if metodo == "h"
         valor = alturas(espacio,x);
     elseif metodo == "MoM"
         valor = MoM(fun,x);
