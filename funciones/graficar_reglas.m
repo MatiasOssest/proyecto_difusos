@@ -8,10 +8,12 @@ ax = subplot(3,1,1);
 title("Importancia de cada regla",'Fontsize',13)
 hold on
 for i=1:6
-plot(tiempo,rules(i,:));
+plot(tiempo,rules(i,:),'o');
 end
 set(gca,'Fontsize',10)
-yticks([0:0.25:1])
+yticks(0:25:100)
+ylim([-0.1 100.1])
+xticks(0:2:(length(rules(1,:))+1))
 grid()
 hold off
 legend("regla 1", "regla 2", "regla 3",...
@@ -20,10 +22,13 @@ legend("regla 1", "regla 2", "regla 3",...
 ax1=subplot(3,1,2);
 hold on
 for i=7:12
-plot(tiempo,rules(i,:));
+plot(tiempo,rules(i,:),'o');
 end
 set(gca,'Fontsize',10)
-yticks([0:0.25:1])
+yticks(0:25:100)
+ylim([-0.1 100.1])
+ylabel("Importancia Regla [%]", 'Fontsize',13)
+xticks(0:2:(length(rules(1,:))+1))
 grid()
 hold off
 legend("regla 7", "regla 8", "regla 9",...
@@ -32,10 +37,12 @@ legend("regla 7", "regla 8", "regla 9",...
 ax2=subplot(3,1,3);
 hold on
 for i=13:17
-plot(tiempo,rules(i,:));
+plot(tiempo,rules(i,:),'o');
 end
 set(gca,'Fontsize',10)
-yticks([0:0.25:1])
+yticks(0:25:100)
+ylim([-0.1 100.1])
+xticks(0:2:(length(rules(1,:))+1))
 xlabel("tiempo (t)",'Fontsize',13)
 grid()
 hold off
